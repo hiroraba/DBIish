@@ -61,6 +61,11 @@ sub PQconnectdb (Str $conninfo)
     is native('libpq')
     { ... }
 
+sub PQconnectdbParams(CArray[Str], CArray[Str], Int)
+    returns OpaquePointer
+    is native('libpq')
+    { * }
+
 sub PQstatus (OpaquePointer $conn)
     returns Int
     is native('libpq')
@@ -457,13 +462,21 @@ class DBDish::Pg:auth<mberends>:ver<0.0.1> {
 
 #------------------ methods to be called from DBIish ------------------
     method connect(*%params) {
-        my $host     = %params<host>     // 'localhost';
-        my $port     = %params<port>     // 5432;
-        my $database = %params<dbname>   // %params<database> // 'postgres';
-        my $user     = %params<user>     // die 'Missing <user> config';
-        my $password = %params<password> // die 'Missing <password> config';
-        my $conninfo = "host=$host port=$port dbname=$database user=$user password=$password";
-        my $pg_conn = PQconnectdb($conninfo);
+        my %c;
+        %c<host>     = %params<host>     // 'localhost';
+        %c<port>     = %params<port>     // 5432;
+        %c<database> = %params<dbname>   // %params<database> // 'postgres';
+        %c<user>     = %params<user>     // die 'Missing <user> config';
+        %c<password> = %params<password> // die 'Missing <password> config';
+        my @keys   := CArray[Str].new;
+        my @values := CArray[Str].new;
+        for %c.keys.kv -> $i, $v {
+            @keys[$i]   = $v.Str;
+        }
+        for %c.values.kv -> $i, $v {
+            @values[$i] = $v.Str;
+        }
+        my $pg_conn = PQconnectdbParams(@keys, @values, 0);
         my $status = PQstatus($pg_conn);
         my $connection;
         if $status eq CONNECTION_OK {
