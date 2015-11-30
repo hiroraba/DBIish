@@ -28,6 +28,7 @@
 # As yet uncommented Perl 5 code is enclosed in Pod 6 '=begin pod' and
 # '=end pod' markers.
 
+use v6;
 use Test;
 
 plan 87;
