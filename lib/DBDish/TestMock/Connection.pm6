@@ -1,6 +1,8 @@
 
 use v6;
 
+use DBDish::Role::Connection;
+
 need DBDish::TestMock::StatementHandle;
 
 unit class DBDish::TestMock::Connection does DBDish::Role::Connection;
