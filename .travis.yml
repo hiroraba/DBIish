@@ -3,7 +3,7 @@ services:
     - mysql
 
 language: perl6
-
+sudo : false
 perl6:
     - latest
 
