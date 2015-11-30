@@ -1,6 +1,5 @@
 # DBIish/t/10-mysql-common.t
 use v6;
-
 use Test;
 use DBIish;
 
