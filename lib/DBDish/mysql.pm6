@@ -1,6 +1,5 @@
 # DBDish::mysql.pm6
 
-use v6;
 use NativeCall;
 use DBDish;     # roles for drivers
 use DBDish::mysql::Native;
