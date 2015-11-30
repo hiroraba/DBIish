@@ -1,4 +1,5 @@
 # DBIish.pm6
+use v6;
 
 class DBIish:auth<mberends>:ver<0.1.0> {
     has $!err;
