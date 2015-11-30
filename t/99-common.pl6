@@ -1,9 +1,9 @@
 # DBIish/t/99-common.pl6
 # This script is intended to be included as the common SQL tests in
 # scripts for specific DBDs such as CSV or mysql.
-
-#use Test;     # "use" dies in a runtime EVAL
-#use DBIish;
+use v6;
+use Test;     # "use" dies in a runtime EVAL
+use DBIish;
 diag "Testing MiniDBD::$*mdriver";
 plan 48;
 
