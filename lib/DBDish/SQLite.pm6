@@ -1,4 +1,6 @@
+use v6;
 use DBDish;
+
 
 need DBDish::SQLite::Connection;
 need DBDish::SQLite::StatementHandle;
